@@ -7,6 +7,7 @@ import {ForgotPasswordComponent} from "./component/forgot-password/forgot-passwo
 import {OtpVerificationComponent} from "./component/otp-verification/otp-verification.component";
 import {ResetPasswordComponent} from "./component/reset-password/reset-password.component";
 
+
 const routes: Routes = [
   {path:'',redirectTo:'/security/context',pathMatch:'full'},
   {path:'context',component:SecurityContextComponent,children:[
