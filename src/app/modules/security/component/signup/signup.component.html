@@ -1,1 +1,57 @@
-<p>signup works!</p>
+<div class="signup-wrapper">
+  <div class="signup-card">
+    <div class="signup-header">
+      <div class="logo-container">
+        <span class="logo-text">Quick<span>Cart</span></span>
+      </div>
+      <h1>Create Account</h1>
+      <p>Join our community today</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email Address</mat-label>
+          <input matInput formControlName="email" type="email" placeholder="john@example.com">
+          <mat-error *ngIf="form.get('email')?.invalid">Enter a valid email</mat-error>
+        </mat-form-field>
+
+        <div class="name-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" type="text" placeholder="John">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" type="text" placeholder="Doe">
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password">
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <mat-checkbox [(ngModel)]="showPassword" [ngModelOptions]="{ standalone: true }">
+          Show Password
+        </mat-checkbox>
+      </div>
+
+      <p class="password-guide">
+        Password must be at least 6 characters and contain <span>&#64;, & or $</span>
+      </p>
+
+      <button mat-flat-button color="primary" class="submit-btn" [disabled]="form.invalid || loading">
+        <span *ngIf="!loading">Sign Up</span>
+        <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+      </button>
+
+      <div class="login-footer">
+        <span>Already have an account?</span>
+        <a routerLink="/security/context/login">Sign in</a>
+      </div>
+    </form>
+  </div>
+</div>

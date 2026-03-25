@@ -1,0 +1,60 @@
+<div class="cart-page">
+  <div class="cart-container">
+    <div class="cart-items-section">
+      <h1>Shopping Cart</h1>
+      <hr>
+
+      <div *ngIf="cartItems.length > 0; else emptyCart">
+        <div class="cart-item" *ngFor="let item of cartItems">
+          <div class="item-image">
+            <img [src]="getImageUrl(item.product)" alt="Product Image">
+          </div>
+          <div class="item-details">
+            <h3 class="product-name">{{item.product.productName}}</h3>
+            <p class="stock-status">In Stock</p>
+            <div class="item-actions">
+              <div class="qty-selector">
+                <button (click)="updateQty(item, -1)">-</button>
+                <span>{{item.quantity}}</span>
+                <button (click)="updateQty(item, 1)">+</button>
+              </div>
+              <span class="separator">|</span>
+              <button class="delete-btn" (click)="removeItem(item)">Delete</button>
+            </div>
+          </div>
+          <div class="item-price">
+            {{item.product.actualPrice | currency:'LKR ':'symbol':'1.0-0'}}
+          </div>
+        </div>
+
+        <div class="subtotal-row">
+          Subtotal ({{getCartCount()}} items): <strong>{{getTotalPrice() | currency:'LKR ':'symbol':'1.0-0'}}</strong>
+        </div>
+      </div>
+
+      <ng-template #emptyCart>
+        <div class="empty-cart">
+          <h2>Your QuickCart entries is empty.</h2>
+          <p>Your shopping cart lives to serve. Give it purpose — fill it with gadgets, books, electronics and more.</p>
+          <button routerLink="/process/context/home" class="btn-shop">Continue Shopping</button>
+        </div>
+      </ng-template>
+    </div>
+
+    <div class="cart-summary-section" *ngIf="cartItems.length > 0">
+      <div class="summary-card">
+        <div class="summary-line">
+          <span>Subtotal ({{getCartCount()}} items):</span>
+          <strong>{{getTotalPrice() | currency:'LKR ':'symbol':'1.0-0'}}</strong>
+        </div>
+        <div class="shipping-line">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#007600">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          <span>Your order qualifies for FREE Shipping</span>
+        </div>
+        <button class="btn-checkout">Proceed to Buy</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {RouterOutlet} from "@angular/router";
 import {SecurityHeaderComponent} from "../security-header/security-header.component";
 import {FooterComponent} from "../../../process/component/footer/footer.component";
+import {SecurityFooterComponent} from "../security-footer/security-footer.component";
 
 @Component({
   selector: 'app-security-context',
@@ -9,7 +10,8 @@ import {FooterComponent} from "../../../process/component/footer/footer.componen
   imports: [
     RouterOutlet,
     SecurityHeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SecurityFooterComponent
   ],
   templateUrl: './security-context.component.html',
   styleUrl: './security-context.component.scss'

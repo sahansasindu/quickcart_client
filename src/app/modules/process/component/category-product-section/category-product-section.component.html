@@ -1,0 +1,26 @@
+<section class="category-section">
+  <h2 class="section-title">Latest Products By Category</h2>
+
+  <!-- Category Banner -->
+  <div class="category-banner">
+    <div class="banner-content">
+      <div class="banner-image">
+        <img src="https://img.freepik.com/free-photo/young-woman-with-shopping-bags-mask_23-2148680731.jpg" alt="Category Banner">
+      </div>
+      <div class="banner-text">
+        <h3 class="category-name">Category Name</h3>
+        <p class="product-count">150 Products found</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="product-grid">
+    <div class="grid-container">
+      <app-product-card
+        *ngFor="let product of products"
+        [product]="product">
+      </app-product-card>
+    </div>
+  </div>
+</section>

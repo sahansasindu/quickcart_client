@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {HeaderComponent} from "../header/header.component";
 import {FooterComponent} from "../footer/footer.component";
+import {HeroComponent} from "../hero/hero.component";
 import {RouterOutlet} from "@angular/router";
 
 @Component({
@@ -9,6 +10,7 @@ import {RouterOutlet} from "@angular/router";
   imports: [
     HeaderComponent,
     FooterComponent,
+    HeroComponent,
     RouterOutlet
   ],
   templateUrl: './context.component.html',

@@ -1,1 +1,45 @@
-<p>login works!</p>
+<div class="login-wrapper">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo-container">
+        <span class="logo-text">Quick<span>Cart</span></span>
+      </div>
+      <h1>Welcome Back</h1>
+      <p>Please enter your details to sign in</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <div class="form-grid">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Email Address</mat-label>
+          <input matInput type="email" placeholder="john@example.com" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="showState ? 'text' : 'password'" formControlName="password">
+          <!-- Note: mat-icon-button requires MatIconModule which might not be imported.
+               Using a simple span or button if needed, but for now sticking to standard mat-form-field suffix if possible.
+          -->
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <mat-checkbox [(ngModel)]="showState" [ngModelOptions]="{standalone:true}" class="remember-me">
+          Show Password
+        </mat-checkbox>
+        <a routerLink="/security/context/forgot-password" class="forgot-pwd">Forgot password?</a>
+      </div>
+
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid || loading" class="submit-btn">
+        <app-loading-spinner *ngIf="loading" [size]="20"></app-loading-spinner>
+        <span *ngIf="!loading">Sign In</span>
+      </button>
+
+      <div class="signup-footer">
+        <span>Don’t have an account?</span>
+        <a routerLink="/security/context/signup">Create account</a>
+      </div>
+    </form>
+  </div>
+</div>
