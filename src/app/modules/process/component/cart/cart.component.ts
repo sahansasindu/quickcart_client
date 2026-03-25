@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { CartService, CartItem } from '../../../../services/cart.service';
 import {CurrencyPipe} from "@angular/common";
 
@@ -7,6 +8,7 @@ import {CurrencyPipe} from "@angular/common";
   selector: 'app-cart',
   standalone: true,
   imports: [
+    CommonModule,
     CurrencyPipe
   ],
   templateUrl: './cart.component.html',
@@ -47,7 +49,7 @@ export class CartComponent implements OnInit {
       const img = images[0];
       let url = typeof img === 'string' ? img : (img.url || img.imageUrl || '');
       if (url && !url.startsWith('http')) {
-        return 'http://localhost:3000/' + url; // Simple fallback, should use environment
+        return 'http://localhost:9091/' + url; // Simple fallback, should use environment
       }
       return url;
     }

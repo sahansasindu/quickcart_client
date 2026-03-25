@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {RouterLink} from "@angular/router";
 import {CategoryService} from "../../../../services/category.service";
 import {WishlistService} from "../../../../services/wishlist.service";
@@ -10,7 +11,8 @@ import { CartService } from '../../../../services/cart.service';
   selector: 'app-header',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    CommonModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

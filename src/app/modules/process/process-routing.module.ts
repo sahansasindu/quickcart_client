@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContextComponent } from './components/context/context.component';
-import { HomepageComponent } from './components/homepage/homepage.component';
+import { ContextComponent } from './component/context/context.component';
+import { HomepageComponent } from './component/homepage/homepage.component';
 import { authGuard } from '../../guards/auth.guard';
 
 const routes: Routes = [
@@ -12,17 +12,17 @@ const routes: Routes = [
       { path: 'home', component: HomepageComponent },
       {
         path: 'product-overview/:id',
-        loadComponent: () => import('./components/product-overview/product-overview.component').then(c => c.ProductOverviewComponent)
+        loadComponent: () => import('./component/product-overview/product-overview.component').then(c => c.ProductOverviewComponent)
       },
       {
         path: 'wishlist',
         canActivate: [authGuard],
-        loadComponent: () => import('./components/wishlist/wishlist.component').then(c => c.WishlistComponent)
+        loadComponent: () => import('./component/wishlist/wishlist.component').then(c => c.WishlistComponent)
       },
       {
         path: 'cart',
         canActivate: [authGuard],
-        loadComponent: () => import('./components/cart/cart.component').then(c => c.CartComponent)
+        loadComponent: () => import('./component/cart/cart.component').then(c => c.CartComponent)
       }
     ]
   }

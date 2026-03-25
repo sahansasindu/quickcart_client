@@ -1,15 +1,14 @@
 import {Component, Input} from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {environment} from "../../../../../enviroments/enveronment.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {WishlistService} from "../../../../services/wishlist.service";
-
-class CartService {
-}
+import { CartService } from '../../../../services/cart.service';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterLink],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss'
 })

@@ -1,1 +1,32 @@
-<p>wishlist works!</p>
+<div class="wishlist-container">
+  <div class="wishlist-header">
+    <h1>My Wishlist</h1>
+    <p *ngIf="products.length > 0">{{products.length}} items saved</p>
+  </div>
+
+  <div *ngIf="products.length > 0; else emptyWishlist" class="product-grid">
+    <div class="wishlist-item" *ngFor="let product of products">
+      <app-product-card
+        [product]="product">
+      </app-product-card>
+      <button class="remove-btn" (click)="removeItem(product)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"></polyline>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+        </svg>
+        Remove
+      </button>
+    </div>
+  </div>
+
+  <ng-template #emptyWishlist>
+    <div class="empty-state">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ddd" stroke-width="1">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.82-8.82 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+      <h2>Your wishlist is empty</h2>
+      <p>Save items that you like in your wishlist to review them later.</p>
+      <button routerLink="/process/context/home" class="btn-shop">Go Shopping</button>
+    </div>
+  </ng-template>
+</div>

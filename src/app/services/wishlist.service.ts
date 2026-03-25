@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../enviroments/enveronment.service';
 import { CookieManagerService } from './cookie-manager.service';
 import { Router } from '@angular/router';
 

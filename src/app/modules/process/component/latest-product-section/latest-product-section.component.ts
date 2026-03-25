@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ProductCardComponent } from '../product-card/product-card.component';
 import {ProductService} from "../../../../services/product.service";
 
 @Component({
   selector: 'app-latest-product-section',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, ProductCardComponent],
   templateUrl: './latest-product-section.component.html',
   styleUrl: './latest-product-section.component.scss'
 })

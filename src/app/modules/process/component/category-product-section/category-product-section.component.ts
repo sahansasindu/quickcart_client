@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ProductCardComponent } from '../product-card/product-card.component';
 import {ProductService} from "../../../../services/product.service";
 
 @Component({
   selector: 'app-category-product-section',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, ProductCardComponent],
   templateUrl: './category-product-section.component.html',
   styleUrl: './category-product-section.component.scss'
 })

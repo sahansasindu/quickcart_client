@@ -1,1 +1,77 @@
-<p>product-review works!</p>
+<div class="reviews-section">
+  <hr class="divider">
+  <h2>Customer Reviews</h2>
+
+  <div class="reviews-container">
+    <!-- New Review Form -->
+    <div class="write-review-card" *ngIf="isLoggedIn; else loginPrompt">
+      <h3>{{ editingReviewId ? 'Edit Your Review' : 'Write a Review' }}</h3>
+
+      <div class="rating-input">
+        <span class="label">Rating:</span>
+        <div class="stars">
+              <span class="star"
+                    *ngFor="let s of [1,2,3,4,5]; let i = index"
+                    [class.active]="i < formRating"
+                    (click)="setRating(i + 1)"
+                    (mouseenter)="hoverRating(i + 1)"
+                    (mouseleave)="hoverRating(0)">
+                ★
+              </span>
+        </div>
+      </div>
+
+      <textarea
+        [(ngModel)]="formMessage"
+        placeholder="What did you like or dislike? What did you use this product for?"
+        rows="4">
+          </textarea>
+
+      <div class="form-actions">
+        <button class="btn btn-cancel" *ngIf="editingReviewId" (click)="cancelEdit()">Cancel</button>
+        <button class="btn btn-submit" (click)="editingReviewId ? updateReview() : submitReview()" [disabled]="!formMessage || !formRating">
+          {{ editingReviewId ? 'Update' : 'Submit' }} Review
+        </button>
+      </div>
+    </div>
+
+    <ng-template #loginPrompt>
+      <div class="login-prompt">
+        <p>Please log in to write a review.</p>
+      </div>
+    </ng-template>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading">Loading reviews...</div>
+
+    <!-- Reviews List -->
+    <div class="reviews-list" *ngIf="!isLoading">
+      <div *ngIf="filteredReviews.length === 0" class="no-reviews">
+        No reviews yet. Be the first to review this product!
+      </div>
+
+      <div class="review-item" *ngFor="let review of filteredReviews">
+        <div class="review-header">
+          <div class="user-info">
+            <div class="avatar">{{ review.displayName?.charAt(0) || 'U' }}</div>
+            <span class="author">{{ review.displayName || 'Unknown User' }}</span>
+          </div>
+          <span class="date">{{ review.createdDate | date:'mediumDate' }}</span>
+        </div>
+
+        <div class="review-rating">
+          <div class="stars">
+            <span class="star" *ngFor="let s of [1,2,3,4,5]; let i = index" [class.active]="i < review.rating">★</span>
+          </div>
+        </div>
+
+        <p class="review-message">{{ review.message }}</p>
+
+        <div class="review-actions" *ngIf="review.userId === currentUserId || review.userId?.$oid === currentUserId || review.userId?.id === currentUserId">
+          <button class="btn-action edit" (click)="startEdit(review)">Edit</button>
+          <button class="btn-action delete" (click)="deleteReview(review._id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,11 @@
-<app-security-header></app-security-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<div class="context">
+  <div class="header">
+    <app-security-header/>
+  </div>
+  <div class="container">
+    <router-outlet/>
+  </div>
+  <div class="footer">
+    <app-security-footer></app-security-footer>
+  </div>
+</div>

@@ -54,17 +54,15 @@ export class SignupComponent{
       this.form.value.email?.trim()!,
       this.form.value.password?.trim()!,
       this.form.value.firstName?.trim()!,
-      this.form.value.lastName?.trim()!).subscribe(response => {
-      this.loading = false;
-      this.router.navigateByUrl('/security/context/confirm-otp/' + this.form.value.email?.trim()!);
-    }, error => {
-      this.loading = false;
-    })
-
-    this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-      alert('User signed up:\n' + JSON.stringify(this.form.value, null, 2));
-    }, 1000);
+      this.form.value.lastName?.trim()!).subscribe({
+        next: (response) => {
+          this.loading = false;
+          this.router.navigateByUrl('/security/context/confirm-otp/' + this.form.value.email?.trim()!);
+        },
+        error: (error) => {
+          this.loading = false;
+          // Optionally handle error message presentation here
+        }
+      });
   }
 }

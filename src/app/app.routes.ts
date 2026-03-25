@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import {NotfoundpageComponent} from "./components/notfoundpage/notfoundpage.component";
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 
 export const routes: Routes = [
 
@@ -17,7 +17,7 @@ export const routes: Routes = [
       ()=>import('./modules/dashboard/dashboard.module').then(e=>e.DashboardModule)
   },
 
-  {path:'**',component:NotfoundpageComponent}
+  {path:'**',component:NotFoundPageComponent}
 
 
 

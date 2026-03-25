@@ -1,72 +1,84 @@
 import { Injectable } from '@angular/core';
-import {environment} from '../../environments/environment.development';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+
+export interface CartItem {
+  product: any;
+  quantity: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  baseUrl = environment.baseUrl;
+export class CartService {
+  private cartItems = new BehaviorSubject<CartItem[]>([]);
+  cart$ = this.cartItems.asObservable();
 
-
-  constructor(private http: HttpClient) {
+  constructor() {
+    this.loadCart();
   }
 
-
-  public register(email: string, password: string, firstName: any, lastName: any): Observable<any> {
-    return this.http.post(this.baseUrl + "user-service/api/v1/users/signup", {
-      email: email,
-      password: password,
-      firstName: firstName,
-      lastName: lastName,
-      createdDate: new Date()
-    })
+  private loadCart(): void {
+    const saved = localStorage.getItem('quickcart_cart');
+    if (saved) {
+      this.cartItems.next(JSON.parse(saved));
+    }
   }
 
-  public verifyEmail(email: any, otp: any): Observable<any> {
-    const params = {otp: otp, email: email};
-    return this.http.post(this.baseUrl + "user-service/api/v1/users/verify-email", null,
-      {params: params})
+  private saveCart(items: CartItem[]): void {
+    localStorage.setItem('quickcart_cart', JSON.stringify(items));
+    this.cartItems.next(items);
   }
 
-  public verifyResetPasswordCode(email: any, otp: any): Observable<any> {
-    const params = {otp: otp, email: email};
-    return this.http.post(this.baseUrl + "user-service/api/v1/users/verify-reset", null,
-      {params: params})
+  addToCart(product: any, quantity: number = 1): void {
+    const current = this.cartItems.value;
+    const productId = product.id || product._id || (product._id?.$oid);
+    const existing = current.find(item => {
+      const id = item.product.id || item.product._id || (item.product._id?.$oid);
+      return id === productId;
+    });
+
+    if (existing) {
+      existing.quantity += quantity;
+      this.saveCart([...current]);
+    } else {
+      this.saveCart([...current, { product, quantity }]);
+    }
   }
 
-  public sendEmail(email: any): Observable<any> {
-    const params = {email: email};
-    return this.http.post(this.baseUrl + "user-service/api/v1/users/forgot-password-request-code", null,
-      {params: params})
+  updateQuantity(productId: string, quantity: number): void {
+    if (quantity <= 0) {
+      this.removeFromCart(productId);
+      return;
+    }
+    const updated = this.cartItems.value.map(item => {
+      const id = item.product.id || item.product._id || (item.product._id?.$oid);
+      if (id === productId) {
+        return { ...item, quantity };
+      }
+      return item;
+    });
+    this.saveCart(updated);
   }
 
-  public resendVerificationCode(email: any): Observable<any> {
-    const params = {email: email};
-    return this.http.post(this.baseUrl + "user-service/api/v1/users/resend", null,
-      {params: params})
+  removeFromCart(productId: string): void {
+    const updated = this.cartItems.value.filter(item => {
+      const id = item.product.id || item.product._id || (item.product._id?.$oid);
+      return id !== productId;
+    });
+    this.saveCart(updated);
   }
 
-  public login(email: string, password: string): Observable<any> {
-    return this.http.post(this.baseUrl + "user-service/api/v1/users/login", {
-      "username": email,
-      "password": password
-    })
+  getTotalPrice(): number {
+    return this.cartItems.value.reduce((total, item) => {
+      return total + (item.product.actualPrice * item.quantity);
+    }, 0);
   }
 
-  public resetPassword(email: any, code: any, password: any): Observable<any> {
-    return this.http.post(this.baseUrl + "user-service/api/v1/users/reset-password", {
-      "email": email,
-      "code": code,
-      "password": password
-    })
+  getCartCount(): number {
+    return this.cartItems.value.reduce((total, item) => total + item.quantity, 0);
   }
 
-
-  public createAvatar(
-    formData:FormData
-  ): Observable<any> {
-    return this.http.post(this.baseUrl + 'user-service/api/v1/avatars/user/manage-avatar',formData);
+  reloadCart(): void {
+    this.loadCart();
   }
 }
