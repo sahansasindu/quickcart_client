@@ -1,1 +1,24 @@
-<p>latest-product-section works!</p>
+<section class="latest-products">
+  <div class="container">
+    <div class="section-header">
+      <div class="header-left">
+        <h2 class="section-title">Latest New Arrivals</h2>
+        <p class="section-subtitle">Be the first to get the newest gadgets and gear</p>
+      </div>
+      <button class="view-all">View All Arrivals</button>
+    </div>
+
+    <div class="products-grid" *ngIf="latestProducts.length > 0; else loading">
+      <app-product-card
+        *ngFor="let product of latestProducts; trackBy: trackById"
+        [product]="product">
+      </app-product-card>
+    </div>
+
+    <ng-template #loading>
+      <div class="loading-state">
+        <div class="shimmer-card" *ngFor="let i of [1,2,3,4]"></div>
+      </div>
+    </ng-template>
+  </div>
+</section>

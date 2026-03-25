@@ -1,2 +1,118 @@
-<button routerLink="/security/context/login">Login</button>
+<header class="header">
+  <div class="top-nav">
+    <div class="logo-container">
+      <span class="brand-name">wattpad</span>
+    </div>
 
+    <div class="search-bar">
+      <select>
+        <option>All</option>
+      </select>
+
+      <input type="text" placeholder="Search here...">
+
+      <button class="btn-search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        Search
+      </button>
+    </div>
+
+    <div class="nav-actions">
+
+      <!-- NOT logged in -->
+      <div class="nav-item" *ngIf="!isLoggedIn" routerLink="/security/context/login" style="cursor:pointer;">
+        <span class="small">Hello, sign in</span>
+        <span class="bold">Account & List ▾</span>
+      </div>
+
+      <!-- Logged in -->
+      <div class="nav-item" *ngIf="isLoggedIn" style="cursor:pointer;">
+        <span class="small">Hello, welcome back!</span>
+        <!--  <span class="bold" (click)="logout()">Logout ▾</span>-->
+      </div>
+
+      <div class="nav-item">
+        <span class="small">Returns</span>
+        <span class="bold">& Orders</span>
+      </div>
+
+      <div class="wishlist-link" routerLink="/process/context/wishlist" title="Wishlist">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.82-8.82 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+          </path>
+        </svg>
+        <span class="badge" *ngIf="getWishlistCount() > 0">{{getWishlistCount()}}</span>
+      </div>
+
+      <div class="cart-container" routerLink="/process/context/cart" style="cursor:pointer;" title="Shopping Cart">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+
+        <span class="cart-count">{{getCartCount()}}</span>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<div class="sub-header">
+  <nav class="sub-nav">
+
+    <span class="menu-btn" (click)="toggleSidebar()">☰ All</span>
+
+    <span *ngFor="let category of categories; trackBy: trackById">
+      {{ category.categoryName }}
+    </span>
+
+    <span *ngIf="categories.length === 0" style="opacity:0.5">
+      Loading categories...
+    </span>
+
+  </nav>
+</div>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" [class.active]="isSidebarOpen" (click)="toggleSidebar()"></div>
+
+<!-- Sidebar -->
+<div class="sidebar" [class.active]="isSidebarOpen">
+  <div class="sidebar-header">
+    <div class="user-info">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <span>Hello, Sign in</span>
+    </div>
+    <button class="close-btn" (click)="toggleSidebar()">×</button>
+  </div>
+
+  <div class="sidebar-content">
+    <h3>Trending</h3>
+    <ul>
+      <li>Best Sellers</li>
+      <li>New Releases</li>
+      <li>Movers & Shakers</li>
+    </ul>
+
+    <hr>
+
+    <h3>Categories</h3>
+    <ul>
+      <li *ngFor="let category of categories; trackBy: trackById" (click)="toggleSidebar()">
+        {{ category.categoryName }}
+      </li>
+      <li *ngIf="categories.length === 0" class="loading-item">Loading categories...</li>
+    </ul>
+  </div>
+</div>
