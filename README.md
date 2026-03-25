@@ -2,10 +2,11 @@
 
  <img width="1670" height="913" alt="image" src="https://github.com/user-attachments/assets/8e72db2e-cc83-46d3-93ab-70dc4d04e69d" />
 
+----------------------------------------------------------------------------------------------------------------------
  
  ![Architecture Diagram](https://github.com/user-attachments/assets/8cdca14d-77a1-4df4-85a5-5f2f1ffe3e50)
 
----
+----------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
