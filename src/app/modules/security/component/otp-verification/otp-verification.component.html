@@ -1,1 +1,62 @@
-<p>otp-verification works!</p>
+<div class="otp-wrapper">
+  <div class="otp-container">
+    <div class="otp-card">
+      <div class="otp-header">
+        <div class="logo-container">
+          <span class="logo-text">Quick<span>Cart</span></span>
+        </div>
+        <h1>Security Check</h1>
+        <p class="guide">
+          We’ve sent a verification code to <br>
+          <span class="email-highlight">{{selectedEmail}}</span>
+          <a routerLink="/security/context/signup" class="change-link">Change</a>
+        </p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="verifyCode()">
+        <div class="verification-code">
+          <mat-form-field appearance="outline" class="otp-field">
+            <input matInput type="text" formControlName="code1" maxlength="1" placeholder="•" pattern="[0-9]*"
+                   inputmode="numeric" (input)="moveToNext($event, 'code2')" (keydown)="validateNumericInput($event)"
+                   (paste)="handlePaste($event)" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="otp-field">
+            <input matInput type="text" formControlName="code2" maxlength="1" placeholder="•" pattern="[0-9]*" inputmode="numeric"
+                   (input)="moveToNext($event, 'code3')" (keydown)="validateNumericInput($event)" (paste)="handlePaste($event)" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="otp-field">
+            <input matInput type="text" formControlName="code3" maxlength="1" placeholder="•" pattern="[0-9]*" inputmode="numeric"
+                   (input)="moveToNext($event, 'code4')" (keydown)="validateNumericInput($event)" (paste)="handlePaste($event)" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="otp-field">
+            <input matInput type="text" formControlName="code4" maxlength="1" placeholder="•" pattern="[0-9]*" inputmode="numeric"
+                   (keydown)="validateNumericInput($event)" (paste)="handlePaste($event)" />
+          </mat-form-field>
+        </div>
+
+        <button mat-flat-button color="primary" [disabled]="form.invalid || loading" type="submit" class="submit-btn">
+          <app-loading-spinner *ngIf="loading" [size]="20"></app-loading-spinner>
+          <span *ngIf="!loading">Verify Code</span>
+        </button>
+
+        <div class="resend-container" *ngIf="!showState">
+          <p>Didn't receive the code?</p>
+          <button type="button" (click)="resend()" class="resend-btn">Resend OTP</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="info-sidebar">
+      <div class="sidebar-content">
+        <div class="image-container">
+          <img src="assets/security/best-place.jpg" alt="Secured by QuickCart">
+        </div>
+        <h2>Trusted by Thousands</h2>
+        <p>Developers Stack is the premier destination for talented software engineers. Elevate your skills and network in the dynamic world of software development.</p>
+      </div>
+    </div>
+  </div>
+</div>
