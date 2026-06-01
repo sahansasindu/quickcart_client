@@ -1,6 +1,5 @@
 ﻿# Quickcart Client
-
- <img width="1670" height="913" alt="image" src="https://github.com/user-attachments/assets/8e72db2e-cc83-46d3-93ab-70dc4d04e69d" />
+ 
  <img width="1899" height="898" alt="image" src="https://github.com/user-attachments/assets/b2155fed-4224-4e63-88cb-d9276045ad0f" />
 
 
